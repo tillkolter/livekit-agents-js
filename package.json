@@ -18,6 +18,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "doc": "typedoc",
+    "prepare": "pnpm build",
     "examples:minimal": "pnpm exec tsx examples/src/minimal_assistant.ts"
   },
   "devDependencies": {
