@@ -1,11 +1,13 @@
 // SPDX-FileCopyrightText: 2024 LiveKit, Inc.
 //
 // SPDX-License-Identifier: Apache-2.0
-import { AsyncIterableQueue, Future, Queue, llm, log, multimodal } from '@livekit/agents';
+import type { llm } from '@livekit/agents';
+import { AsyncIterableQueue, Future, Queue, log, multimodal } from '@livekit/agents';
 import { AudioFrame } from '@livekit/rtc-node';
 import { once } from 'events';
 import { WebSocket } from 'ws';
 import * as api_proto from './api_proto.js';
+import { translateCallableFunctionToTool } from './helpers.js';
 
 interface ModelOptions {
   modalities: ['text', 'audio'] | ['text'];
@@ -423,12 +425,7 @@ export class RealtimeSession extends multimodal.RealtimeSession {
     const tools = this.#fncCtx
       ? Object.entries(this.#fncCtx)
           .filter(([name]) => selectedTools.includes(name))
-          .map(([name, func]) => ({
-            type: 'function' as const,
-            name,
-            description: func.description,
-            parameters: llm.oaiParams(func.parameters),
-          }))
+          .map(([name, func]) => translateCallableFunctionToTool(name, func))
       : [];
 
     this.queueMsg({

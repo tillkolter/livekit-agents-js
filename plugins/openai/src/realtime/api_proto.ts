@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: 2024 LiveKit, Inc.
 //
 // SPDX-License-Identifier: Apache-2.0
+import type { FunctionDefinition } from 'openai/resources';
 
 export const SAMPLE_RATE = 24000;
 export const NUM_CHANNELS = 1;
@@ -67,21 +68,7 @@ export type ServerEventType =
 
 export type AudioBase64Bytes = string;
 
-export interface Tool {
-  type: 'function';
-  name: string;
-  description?: string;
-  parameters: {
-    type: 'object';
-    properties: {
-      [prop: string]: {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        [prop: string]: any;
-      };
-    };
-    required_properties: string[];
-  };
-}
+export type Tool = { type: 'function' } & FunctionDefinition;
 
 export type TurnDetectionType = {
   type: 'server_vad';
