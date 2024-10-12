@@ -9,7 +9,7 @@ import type { z } from 'zod';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 /** Type reinforcement for the callable function's execute parameters. */
-type inferParameters<P extends z.ZodTypeAny> = z.infer<P>;
+export type inferParameters<P extends z.ZodTypeAny> = z.infer<P>;
 
 /** A definition for a function callable by the LLM. */
 export interface CallableFunction<P extends z.ZodTypeAny = any, R = any> {
