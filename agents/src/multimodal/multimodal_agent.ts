@@ -299,12 +299,14 @@ export class MultimodalAgent extends EventEmitter {
       this.#subscribeToMicrophone();
     } else {
       this.room.on(RoomEvent.TrackPublished, () => {
+        this.#logger.debug(`Track published`);
         this.#subscribeToMicrophone();
       });
     }
   }
 
   #subscribeToMicrophone(): void {
+    this.#logger.debug(`Subscribe to to microphone`);
     const readAudioStreamTask = async (audioStream: AudioStream) => {
       const bstream = new AudioByteStream(
         this.model.sampleRate,
