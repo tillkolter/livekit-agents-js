@@ -27,6 +27,9 @@ jobs:
           scope: "@spring-media"
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @livekit/agents build
+      - run: pnpm --filter @livekit/agents-plugins-test build
+      - run: pnpm --filter @livekit/agents-plugin-openai build
       - run: pnpm --filter @spring-media/livekit-agents-plugin-google build
       - run: pnpm --filter @spring-media/livekit-agents-plugin-google publish --no-git-checks
         env:
