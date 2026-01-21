@@ -1,5 +1,5 @@
 {
-  "name": "@livekit/agents-plugin-google",
+  "name": "@spring-media/livekit-agents-plugin-google",
   "version": "1.0.38",
   "description": "Google Gemini plugin for LiveKit Node Agents",
   "main": "dist/index.js",
@@ -17,7 +17,10 @@
   },
   "author": "LiveKit",
   "type": "module",
-  "repository": "git@github.com:livekit/agents-js.git",
+  "repository": "git@github.com:spring-media/livekit-agents-js.git",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "license": "Apache-2.0",
   "files": [
     "dist",

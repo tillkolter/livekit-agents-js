@@ -12,7 +12,7 @@ class GooglePlugin extends Plugin {
     super({
       title: 'google',
       version: '0.1.0',
-      package: '@livekit/agents-plugin-google',
+      package: '@spring-media/livekit-agents-plugin-google',
     });
   }
 }
