@@ -714,20 +714,25 @@ export class RealtimeSession extends llm.RealtimeSession {
     return fut.await;
   }
 
+  private sendActivityStart(): void {
+    if (this.inUserActivity) {
+      return;
+    }
+
+    this.inUserActivity = true;
+    this.sendClientEvent({
+      type: 'realtime_input',
+      value: {
+        activityStart: {},
+      },
+    });
+  }
+
   startUserActivity(): void {
     if (!this.manualActivityDetection) {
       return;
     }
-
-    if (!this.inUserActivity) {
-      this.inUserActivity = true;
-      this.sendClientEvent({
-        type: 'realtime_input',
-        value: {
-          activityStart: {},
-        },
-      });
-    }
+    this.sendActivityStart();
   }
 
   async interrupt() {
@@ -735,7 +740,7 @@ export class RealtimeSession extends llm.RealtimeSession {
     if (this.options.realtimeInputConfig?.activityHandling === ActivityHandling.NO_INTERRUPTION) {
       return;
     }
-    this.startUserActivity();
+    this.sendActivityStart();
   }
 
   async truncate(_options: { messageId: string; audioEndMs: number; audioTranscript?: string }) {
