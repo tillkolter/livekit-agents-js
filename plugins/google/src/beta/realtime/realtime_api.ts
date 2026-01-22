@@ -404,6 +404,7 @@ export class RealtimeSession extends llm.RealtimeSession {
   private sessionShouldClose = new Event();
   private responseCreatedFutures: { [id: string]: Future<llm.GenerationCreatedEvent> } = {};
   private pendingGenerationFut?: Future<llm.GenerationCreatedEvent>;
+  private pendingUserTurns: types.Content[] = [];
 
   private sessionResumptionHandle?: string;
   private inUserActivity = false;
@@ -567,7 +568,14 @@ export class RealtimeSession extends llm.RealtimeSession {
 
       const toolResults = this.getToolResultsForRealtime(appendCtx, this.options.vertexai);
 
-      if (turns.length > 0) {
+      const shouldDeferUserTurns =
+        toolResults === undefined &&
+        turns.length > 0 &&
+        turns.every((turn) => turn.role === 'user');
+
+      if (shouldDeferUserTurns) {
+        this.pendingUserTurns = turns as types.Content[];
+      } else if (turns.length > 0) {
         this.sendClientEvent({
           type: 'content',
           value: {
@@ -665,8 +673,6 @@ export class RealtimeSession extends llm.RealtimeSession {
       this.inUserActivity = false;
     }
 
-    // Gemini requires the last message to end with user's turn
-    // so we need to add a placeholder user turn in order to trigger a new generation
     const turns: types.Content[] = [];
     if (instructions !== undefined) {
       turns.push({
@@ -674,10 +680,17 @@ export class RealtimeSession extends llm.RealtimeSession {
         role: 'model',
       });
     }
-    turns.push({
-      parts: [{ text: '.' }],
-      role: 'user',
-    });
+    if (this.pendingUserTurns.length > 0) {
+      turns.push(...this.pendingUserTurns);
+      this.pendingUserTurns = [];
+    } else {
+      // Gemini requires the last message to end with user's turn
+      // so we need to add a placeholder user turn in order to trigger a new generation
+      turns.push({
+        parts: [{ text: '.' }],
+        role: 'user',
+      });
+    }
 
     this.sendClientEvent({
       type: 'content',
