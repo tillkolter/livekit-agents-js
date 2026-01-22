@@ -571,7 +571,7 @@ export class RealtimeSession extends llm.RealtimeSession {
       const shouldDeferUserTurns =
         toolResults === undefined &&
         turns.length > 0 &&
-        turns.every((turn) => turn.role === 'user');
+        turns.every((turn: types.Content) => turn.role === 'user');
 
       if (shouldDeferUserTurns) {
         this.pendingUserTurns = turns as types.Content[];
