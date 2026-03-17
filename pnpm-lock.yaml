@@ -442,8 +442,8 @@ importers:
   plugins/cartesia:
     dependencies:
       ws:
-        specifier: ^8.16.0
-        version: 8.17.0
+        specifier: ^8.19.0
+        version: 8.19.0
       zod:
         specifier: ^3.25.76 || ^4.1.8
         version: 4.2.1
@@ -476,8 +476,8 @@ importers:
   plugins/deepgram:
     dependencies:
       ws:
-        specifier: ^8.16.0
-        version: 8.17.0
+        specifier: ^8.19.0
+        version: 8.19.0
     devDependencies:
       '@livekit/agents':
         specifier: workspace:*
@@ -513,8 +513,8 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1
       ws:
-        specifier: ^8.16.0
-        version: 8.17.0
+        specifier: ^8.19.0
+        version: 8.19.0
     devDependencies:
       '@livekit/agents':
         specifier: workspace:*
@@ -690,8 +690,8 @@ importers:
   plugins/neuphonic:
     dependencies:
       ws:
-        specifier: ^8.16.0
-        version: 8.17.0
+        specifier: ^8.19.0
+        version: 8.19.0
     devDependencies:
       '@livekit/agents':
         specifier: workspace:*
@@ -783,8 +783,8 @@ importers:
   plugins/resemble:
     dependencies:
       ws:
-        specifier: ^8.16.0
-        version: 8.17.0
+        specifier: ^8.19.0
+        version: 8.19.0
     devDependencies:
       '@livekit/agents':
         specifier: workspace:^
@@ -885,8 +885,8 @@ importers:
         specifier: 1.21.0
         version: 1.21.0
       ws:
-        specifier: ^8.16.0
-        version: 8.17.0
+        specifier: ^8.19.0
+        version: 8.19.0
     devDependencies:
       '@livekit/agents':
         specifier: workspace:*
@@ -939,35 +939,35 @@ importers:
         version: 3.25.76
 
   plugins/trugen:
-      dependencies:
-        livekit-server-sdk:
-          specifier: ^2.13.3
-          version: 2.13.3
-      devDependencies:
-        '@livekit/agents':
-          specifier: workspace:*
-          version: link:../../agents
-        '@livekit/rtc-node':
-          specifier: 'catalog:'
-          version: 0.13.24
-        '@microsoft/api-extractor':
-          specifier: ^7.35.0
-          version: 7.43.7(@types/node@22.19.1)
-        pino:
-          specifier: ^8.19.0
-          version: 8.21.0
-        tsup:
-          specifier: ^8.3.5
-          version: 8.4.0(@microsoft/api-extractor@7.43.7(@types/node@22.19.1))(postcss@8.5.6)(tsx@4.21.0)(typescript@5.4.5)
-        typescript:
-          specifier: ^5.0.0
-          version: 5.4.5
+    dependencies:
+      livekit-server-sdk:
+        specifier: ^2.13.3
+        version: 2.13.3
+    devDependencies:
+      '@livekit/agents':
+        specifier: workspace:*
+        version: link:../../agents
+      '@livekit/rtc-node':
+        specifier: 'catalog:'
+        version: 0.13.24
+      '@microsoft/api-extractor':
+        specifier: ^7.35.0
+        version: 7.43.7(@types/node@22.19.1)
+      pino:
+        specifier: ^8.19.0
+        version: 8.21.0
+      tsup:
+        specifier: ^8.3.5
+        version: 8.4.0(@microsoft/api-extractor@7.43.7(@types/node@22.19.1))(postcss@8.5.6)(tsx@4.21.0)(typescript@5.4.5)
+      typescript:
+        specifier: ^5.0.0
+        version: 5.4.5
 
   plugins/xai:
     dependencies:
       openai:
         specifier: ^6.8.1
-        version: 6.8.1(ws@8.18.3)(zod@4.3.6)
+        version: 6.8.1(ws@8.19.0)(zod@4.3.6)
     devDependencies:
       '@livekit/agents':
         specifier: workspace:*
@@ -5415,8 +5415,8 @@ packages:
   wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
 
-  ws@8.17.0:
-    resolution: {integrity: sha512-uJq6108EgZMAl20KagGkzCKfMEjxmKvZHG7Tlq0Z6nOky7YF7aq4mOx6xK8TJ/i1LeK4Qus7INktacctDgY8Ow==}
+  ws@8.18.3:
+    resolution: {integrity: sha512-PEIGCY5tSlUt50cqyMXfCzX+oOPqN0vuGqWzbcJ2xvnkzkq46oOpz7dQaTDBdfICb4N14+GARUDw2XV2N4tvzg==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
@@ -5427,8 +5427,8 @@ packages:
       utf-8-validate:
         optional: true
 
-  ws@8.18.3:
-    resolution: {integrity: sha512-PEIGCY5tSlUt50cqyMXfCzX+oOPqN0vuGqWzbcJ2xvnkzkq46oOpz7dQaTDBdfICb4N14+GARUDw2XV2N4tvzg==}
+  ws@8.19.0:
+    resolution: {integrity: sha512-blAT2mjOEIi0ZzruJfIhb3nps74PRWTCz1IjglWEEpQl5XS/UNama6u2/rjFkDDouqr4L67ry+1aGIALViWjDg==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
@@ -6093,7 +6093,7 @@ snapshots:
       google-auth-library: 10.5.0
       p-retry: 4.6.2
       protobufjs: 7.5.4
-      ws: 8.18.3
+      ws: 8.19.0
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -8940,6 +8940,11 @@ snapshots:
       ws: 8.18.3
       zod: 4.3.6
 
+  openai@6.8.1(ws@8.19.0)(zod@4.3.6):
+    optionalDependencies:
+      ws: 8.19.0
+      zod: 4.3.6
+
   optionator@0.9.4:
     dependencies:
       deep-is: 0.1.4
@@ -9021,7 +9026,7 @@ snapshots:
 
   phonic@0.31.2:
     dependencies:
-      ws: 8.18.3
+      ws: 8.19.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -10194,9 +10199,9 @@ snapshots:
 
   wrappy@1.0.2: {}
 
-  ws@8.17.0: {}
-
   ws@8.18.3: {}
+
+  ws@8.19.0: {}
 
   yallist@4.0.0: {}
 
