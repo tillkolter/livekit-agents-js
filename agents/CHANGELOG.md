@@ -1,5 +1,13 @@
 # @livekit/agents
 
+## 1.2.7
+
+### Patch Changes
+
+- fix(inference): accept numeric STT error codes - [#1231](https://github.com/livekit/agents-js/pull/1231) ([@Maples7](https://github.com/Maples7))
+
+- feat(inference): handle preflight_transcript events in inference STT plugin - [#1228](https://github.com/livekit/agents-js/pull/1228) ([@adrian-cowham](https://github.com/adrian-cowham))
+
 ## 1.2.6
 
 ### Patch Changes
