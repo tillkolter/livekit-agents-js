@@ -32,19 +32,15 @@ const UPDATE_LOAD_INTERVAL = 2.5 * 1000;
 const PROJECT_TYPE = 'nodejs';
 
 function toBinaryMessage(data: RawData): Uint8Array {
-  if (data instanceof Buffer) {
-    return data;
+  if (Array.isArray(data)) {
+    return Buffer.concat(data);
   }
 
   if (data instanceof ArrayBuffer) {
     return new Uint8Array(data);
   }
 
-  if (Array.isArray(data)) {
-    return Buffer.concat(data);
-  }
-
-  return new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
+  return data;
 }
 
 class Default {
