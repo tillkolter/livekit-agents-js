@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2024 LiveKit, Inc.
 //
 // SPDX-License-Identifier: Apache-2.0
-import { type IncomingMessage, type Server, type ServerResponse, createServer } from 'node:http';
+import { type IncomingMessage, Server, type ServerResponse } from 'node:http';
 import { log } from './log.js';
 
 export interface HealthCheckResult {
@@ -32,7 +32,7 @@ export class HTTPServer {
     this.host = host;
     this.port = port;
 
-    this.app = createServer((req: IncomingMessage, res: ServerResponse) => {
+    this.app = new Server((req: IncomingMessage, res: ServerResponse) => {
       if (req.url === '/') {
         const result = healthCheckListener();
         if (result.healthy) {

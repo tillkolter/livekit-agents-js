@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: 2025 LiveKit, Inc.
 //
 // SPDX-License-Identifier: Apache-2.0
+import { randomUUID } from 'node:crypto';
 import { beforeAll, describe, expect, it } from 'vitest';
 import { normalizeLanguage } from '../language.js';
 import { initializeLogger } from '../log.js';
@@ -11,12 +12,16 @@ beforeAll(() => {
   initializeLogger({ level: 'silent', pretty: false });
 });
 
+const TEST_API_CREDENTIALS = {
+  apiKey: randomUUID(),
+  apiSecret: randomUUID(),
+};
+
 /** Helper to create TTS with required credentials. */
 function makeTts(overrides: Record<string, unknown> = {}) {
   const defaults = {
     model: 'cartesia/sonic' as const,
-    apiKey: 'test-key',
-    apiSecret: 'test-secret',
+    ...TEST_API_CREDENTIALS,
     baseURL: 'https://example.livekit.cloud',
   };
   return new TTS({ ...defaults, ...overrides });
@@ -277,8 +282,7 @@ describe('TTS provider modelOptions parity', () => {
 
     const tts = new TTS({
       model: 'elevenlabs/eleven_flash_v2_5' as const,
-      apiKey: 'test-key',
-      apiSecret: 'test-secret',
+      ...TEST_API_CREDENTIALS,
       baseURL: 'https://example.livekit.cloud',
       modelOptions,
     });
@@ -295,8 +299,7 @@ describe('TTS provider modelOptions parity', () => {
 
     const tts = new TTS({
       model: 'cartesia/sonic' as const,
-      apiKey: 'test-key',
-      apiSecret: 'test-secret',
+      ...TEST_API_CREDENTIALS,
       baseURL: 'https://example.livekit.cloud',
       modelOptions,
     });
@@ -309,8 +312,7 @@ describe('TTS provider modelOptions parity', () => {
 
     const tts = new TTS({
       model: 'deepgram/aura-2' as const,
-      apiKey: 'test-key',
-      apiSecret: 'test-secret',
+      ...TEST_API_CREDENTIALS,
       baseURL: 'https://example.livekit.cloud',
       modelOptions,
     });
@@ -326,8 +328,7 @@ describe('TTS provider modelOptions parity', () => {
 
     const tts = new TTS({
       model: 'rime/mistv2' as const,
-      apiKey: 'test-key',
-      apiSecret: 'test-secret',
+      ...TEST_API_CREDENTIALS,
       baseURL: 'https://example.livekit.cloud',
       modelOptions,
     });
@@ -343,8 +344,7 @@ describe('TTS provider modelOptions parity', () => {
 
     const tts = new TTS({
       model: 'inworld/inworld-tts-1' as const,
-      apiKey: 'test-key',
-      apiSecret: 'test-secret',
+      ...TEST_API_CREDENTIALS,
       baseURL: 'https://example.livekit.cloud',
       modelOptions,
     });
