@@ -14,7 +14,7 @@ import type { Throws } from '@livekit/throws-transformer/throws';
 import type { ParticipantInfo } from 'livekit-server-sdk';
 import { AccessToken, RoomServiceClient } from 'livekit-server-sdk';
 import { EventEmitter } from 'node:events';
-import { WebSocket } from 'ws';
+import { type RawData, WebSocket } from 'ws';
 import { getCpuMonitor } from './cpu.js';
 import { HTTPServer } from './http_server.js';
 import { InferenceRunner } from './inference_runner.js';
@@ -30,6 +30,18 @@ const MAX_RECONNECT_ATTEMPTS = 10;
 const ASSIGNMENT_TIMEOUT = 7.5 * 1000;
 const UPDATE_LOAD_INTERVAL = 2.5 * 1000;
 const PROJECT_TYPE = 'nodejs';
+
+function toBinaryMessage(data: RawData): Uint8Array {
+  if (Array.isArray(data)) {
+    return Buffer.concat(data);
+  }
+
+  if (data instanceof ArrayBuffer) {
+    return new Uint8Array(data);
+  }
+
+  return data;
+}
 
 class Default {
   static loadThreshold(production: boolean): number {
@@ -519,7 +531,7 @@ export class AgentServer {
     this.event.on('worker_msg', send);
 
     const close = new Promise<void>((resolve) => {
-      ws.addEventListener('close', () => {
+      ws.on('close', () => {
         closingWS = true;
         if (!this.#closed) {
           this.#logger.error('worker connection closed unexpectedly');
@@ -528,18 +540,18 @@ export class AgentServer {
       });
     });
 
-    ws.addEventListener('error', (event) => {
-      this.#logger.error('worker error:', event.message);
+    ws.on('error', (error) => {
+      this.#logger.error('worker error:', error.message);
     });
 
-    ws.addEventListener('message', (event) => {
-      if (event.type !== 'message') {
-        this.#logger.warn('unexpected message type: ' + event.type);
+    ws.on('message', (data: RawData, isBinary: boolean) => {
+      if (!isBinary) {
+        this.#logger.warn('unexpected non-binary message from worker session');
         return;
       }
 
       const msg = new ServerMessage();
-      msg.fromBinary(event.data as Uint8Array);
+      msg.fromBinary(toBinaryMessage(data));
 
       // register is the only valid first message, and it is only valid as the
       // first message
